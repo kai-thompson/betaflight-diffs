@@ -104,9 +104,8 @@ set vtx_freq = 5769
 set vcd_video_system = NTSC
 set gyro_1_sensor_align = CW180
 set gyro_1_align_yaw = 1800
-set expresslrs_uid = 0,0,164,119,214,232
-set expresslrs_rate_index = 2
-set expresslrs_switch_mode = HYBRID
+set expresslrs_uid = 0,0,198,234,22,165
+set expresslrs_rate_index = 1
 set name = Mobeetle6
 
 profile 0
@@ -189,8 +188,7 @@ rateprofile 4
 rateprofile 5
 
 # restore original rateprofile selection
-rateprofile 2
+rateprofile 0
 
 # save configuration
 save
- 
