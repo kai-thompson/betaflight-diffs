@@ -8,6 +8,7 @@ batch start
 defaults nosave
 
 board_name CRAZYBEEF4SX1280
+manufacturer_id HAMO
 mcu_id 003f00493032510e33383735
 signature 
 
@@ -31,15 +32,20 @@ beacon RX_SET
 
 # aux
 aux 0 0 0 1800 2100 0 0
-aux 1 1 1 1800 2100 0 0
-aux 2 35 4 1800 2100 0 0
+aux 1 1 1 900 1200 0 0
+aux 2 35 2 1800 2100 0 0
+
+# adjrange
+adjrange 0 0 1 900 1200 12 1 0 0
+adjrange 1 0 1 1200 1800 12 1 0 0
+adjrange 2 0 1 1800 2100 12 1 0 0
 
 # vtxtable
 vtxtable bands 6
 vtxtable channels 8
 vtxtable band 1 BOSCAM_A A FACTORY 5865 5845 5825 5805 5785 5765 5745 5725
 vtxtable band 2 BOSCAM_B B FACTORY 5733 5752 5771 5790 5809 5828 5847 5866
-vtxtable band 3 BOSCAM_E E FACTORY 5705 5685 5665 5645 5885 5905 5925 5945
+vtxtable band 3 BOSCAM_E E FACTORY 5705 5685 5665    0 5885 5905    0    0
 vtxtable band 4 FATSHARK F FACTORY 5740 5760 5780 5800 5820 5840 5860 5880
 vtxtable band 5 RACEBAND R FACTORY 5658 5695 5732 5769 5806 5843 5880 5917
 vtxtable band 6 LOWRACE  L FACTORY 5333 5373 5413 5453 5493 5533 5573 5613
@@ -49,21 +55,23 @@ vtxtable powerlabels 0 RCE 25 100 400
 
 # master
 set gyro_lpf1_static_hz = 0
-set gyro_lpf2_type = PT2
-set gyro_lpf1_dyn_min_hz = 300
-set gyro_lpf1_dyn_max_hz = 550
-set acc_trim_pitch = -4
+set dyn_notch_count = 1
+set dyn_notch_q = 500
 set acc_calibration = -189,68,108,1
+set dshot_bidir = ON
 set motor_pwm_protocol = DSHOT300
 set motor_poles = 12
 set align_board_yaw = 180
+set vbat_max_cell_voltage = 440
+set vbat_min_cell_voltage = 330
+set vbat_warning_cell_voltage = 350
 set yaw_motors_reversed = ON
 set small_angle = 180
 set deadband = 1
 set yaw_deadband = 1
-set simplified_gyro_filter = OFF
 set osd_warn_batt_not_full = OFF
 set osd_warn_esc_fail = OFF
+set osd_warn_core_temp = OFF
 set osd_warn_link_quality = ON
 set osd_rssi_pos = 314
 set osd_link_quality_pos = 344
@@ -89,13 +97,16 @@ set osd_stat_bbox = OFF
 set osd_stat_bb_no = OFF
 set debug_mode = RX_EXPRESSLRS_SPI
 set vtx_band = 5
-set vtx_channel = 6
+set vtx_channel = 4
 set vtx_power = 5
 set vtx_low_power_disarm = ON
-set vtx_freq = 5843
+set vtx_freq = 5769
 set vcd_video_system = NTSC
-set expresslrs_uid = 0,0,198,234,22,165
-set expresslrs_rate_index = 1
+set gyro_1_sensor_align = CW180
+set gyro_1_align_yaw = 1800
+set expresslrs_uid = 0,0,164,119,214,232
+set expresslrs_rate_index = 2
+set expresslrs_switch_mode = HYBRID
 set name = Mobeetle6
 
 profile 0
@@ -105,24 +116,36 @@ set dterm_lpf1_dyn_min_hz = 90
 set dterm_lpf1_dyn_max_hz = 180
 set dterm_lpf1_static_hz = 90
 set dterm_lpf2_static_hz = 180
-set p_pitch = 59
+set vbat_sag_compensation = 100
+set anti_gravity_gain = 4500
+set iterm_relax_cutoff = 20
+set yaw_lowpass_hz = 0
+set p_pitch = 80
 set i_pitch = 100
-set d_pitch = 43
-set f_pitch = 137
-set p_roll = 56
-set i_roll = 95
-set d_roll = 42
-set f_roll = 132
-set p_yaw = 56
-set i_yaw = 95
-set f_yaw = 132
+set d_pitch = 85
+set f_pitch = 140
+set p_roll = 85
+set i_roll = 100
+set d_roll = 85
+set f_roll = 140
+set p_yaw = 120
+set i_yaw = 100
+set f_yaw = 140
 set d_min_roll = 31
 set d_min_pitch = 32
+set d_max_advance = 0
+set feedforward_jitter_factor = 5
+set feedforward_boost = 18
+set feedforward_max_rate_limit = 95
+set simplified_pids_mode = OFF
 set simplified_master_multiplier = 105
 set simplified_i_gain = 95
+set simplified_d_gain = 185
 set simplified_pi_gain = 120
+set simplified_dmax_gain = 0
 set simplified_feedforward_gain = 105
 set simplified_pitch_d_gain = 90
+set simplified_pitch_pi_gain = 90
 set simplified_dterm_filter_multiplier = 120
 
 profile 1
@@ -166,7 +189,8 @@ rateprofile 4
 rateprofile 5
 
 # restore original rateprofile selection
-rateprofile 0
+rateprofile 2
 
 # save configuration
 save
+ 
